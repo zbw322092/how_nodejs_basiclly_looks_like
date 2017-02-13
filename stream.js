@@ -1,4 +1,5 @@
 const fs = require('fs');
+const zlib = require('zlib');
 // const http = require('http');
 
 // const server = http.createServer((req, res) => {
@@ -55,20 +56,27 @@ const fs = require('fs');
 // 	console.log('end');
 // });
 
-const rr2 = fs.createReadStream('randomText.txt');
-rr2.on('data', (chunk) => {
-  console.log(`Received ${chunk.length} bytes of data.`);
-  rr2.pause();
-  console.log('There will be no additional data for 1 second.');
-  setTimeout(() => {
-    console.log('Now data will start flowing again.');
-    rr2.resume();
-    console.log(`Received ${chunk.length} bytes of data.`);
-  }, 1000);
-});
+// const rr2 = fs.createReadStream('randomText.txt');
+// rr2.on('data', (chunk) => {
+//   console.log(`Received ${chunk.length} bytes of data.`);
+//   rr2.pause();
+//   console.log('There will be no additional data for 1 second.');
+//   setTimeout(() => {
+//     console.log('Now data will start flowing again.');
+//     rr2.resume();
+//     console.log(`Received ${chunk.length} bytes of data.`);
+//   }, 1000);
+// });
 
 
+// const rr3 = fs.createReadStream('example.txt');
+// const writeStream = fs.createWriteStream('example2.txt');
+// rr3.pipe(writeStream);
 
+const rr4 = fs.createReadStream('example.txt');
+const z = zlib.createGzip();
+const writeStream2 = fs.createWriteStream('example3.txt');
+rr4.pipe(z).pipe(writeStream2);
 
 
 
