@@ -33,10 +33,18 @@ const fs = require('fs');
 // });
 
 
-const file = fs.createWriteStream('example.txt');
-file.write('hello, ');
-file.end('world!', () => {
-	console.log('stream write finish');
+// const file = fs.createWriteStream('example.txt');
+// file.write('hello, ');
+// file.end('world!', () => {
+// 	console.log('stream write finish');
+// });
+
+const fileReader = fs.createReadStream('example.txt');
+fileReader.on('data', (chunk) => {
+	console.log(`Received ${chunk.length} bytes of data.`)
+});
+fileReader.on('end', () => {
+	console.log('There will be no more data.');
 });
 
 
