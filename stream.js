@@ -73,11 +73,29 @@ const zlib = require('zlib');
 // const writeStream = fs.createWriteStream('example2.txt');
 // rr3.pipe(writeStream);
 
-const rr4 = fs.createReadStream('example.txt');
-const z = zlib.createGzip();
-const writeStream2 = fs.createWriteStream('example3.txt');
-rr4.pipe(z).pipe(writeStream2);
+// const rr4 = fs.createReadStream('example.txt');
+// const z = zlib.createGzip();
+// const writeStream2 = fs.createWriteStream('example3.txt');
+// rr4.pipe(z).pipe(writeStream2);
 
+
+// const rr5 = fs.createReadStream('randomText.txt');
+// rr5.on('readable', () => {
+// 	var chunk;
+// 	while (null !== (chunk = rr5.read())) {
+//     console.log(`Received ${chunk.length} bytes of data.`);
+// 	}
+// });
+
+const rr6 = fs.createReadStream('randomText.txt');
+const writeStream3 = fs.createWriteStream('randomTextDestination.txt');
+rr6.pipe(writeStream3);
+setTimeout(() => {
+	console.log('Stop writing');
+	rr6.unpipe(writeStream3);
+	console.log('Manually close the file stream');
+	writeStream3.end();
+},100);
 
 
 
