@@ -1,0 +1,14 @@
+{
+  "name": "how_nodejs_basiclly_looks_like",
+  "version": "1.0.0",
+  "description": "Node.js Basic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node.js"
+  ],
+  "author": "Bowen Zhong",
+  "license": "ISC"
+}
