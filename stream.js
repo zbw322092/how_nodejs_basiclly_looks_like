@@ -47,15 +47,25 @@ const fs = require('fs');
 // 	console.log('There will be no more data.');
 // });
 
-const rr = fs.createReadStream('foo.txt');
-rr.on('readable', () => {
-	console.log('readable: ', rr.read());
-});
-rr.on('end', () => {
-	console.log('end');
-});
+// const rr = fs.createReadStream('foo.txt');
+// rr.on('readable', () => {
+// 	console.log('readable: ', rr.read());
+// });
+// rr.on('end', () => {
+// 	console.log('end');
+// });
 
-
+const rr2 = fs.createReadStream('randomText.txt');
+rr2.on('data', (chunk) => {
+  console.log(`Received ${chunk.length} bytes of data.`);
+  rr2.pause();
+  console.log('There will be no additional data for 1 second.');
+  setTimeout(() => {
+    console.log('Now data will start flowing again.');
+    rr2.resume();
+    console.log(`Received ${chunk.length} bytes of data.`);
+  }, 1000);
+});
 
 
 
