@@ -122,7 +122,7 @@ const Readable = require('stream').Readable;
 // rs2.pipe(process.stdout);
 
 
-const rs3 = Readable();
+// const rs3 = Readable();
 // let d = 97 - 1;
 // rs3._read = function () {
 //     if (d >= 'z'.charCodeAt(0)) return rs3.push(null);
@@ -139,10 +139,22 @@ const rs3 = Readable();
 // process.stdout.on('error', process.exit);
 
 
-process.stdin.on('readable', function() {
-	var buf = process.stdin.read(3);
-	console.dir(buf);
-});
+// process.stdin.on('readable', function() {
+// 	var buf = process.stdin.read(3);
+// 	console.dir(buf);
+// });
+
+
+
+var Writable = require('stream').Writable;
+var ws = Writable();
+ws._write = function(chunk, enc, next) {
+	console.dir(chunk);
+	next();
+};
+process.stdin.pipe(ws);
+
+process.stdout.write('hi there');
 
 
 
