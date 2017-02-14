@@ -123,20 +123,27 @@ const Readable = require('stream').Readable;
 
 
 const rs3 = Readable();
-let d = 97 - 1;
-rs3._read = function () {
-    if (d >= 'z'.charCodeAt(0)) return rs3.push(null);
+// let d = 97 - 1;
+// rs3._read = function () {
+//     if (d >= 'z'.charCodeAt(0)) return rs3.push(null);
 
-    setTimeout(function () {
-        rs3.push(String.fromCharCode(++d));
-    }, 100);
-};
+//     setTimeout(function () {
+//         rs3.push(String.fromCharCode(++d));
+//     }, 100);
+// };
 
-rs3.pipe(process.stdout);
-process.on('exit', function () {
-  console.error('\n_read() called ' + (d - 97) + ' times');
+// rs3.pipe(process.stdout);
+// process.on('exit', function () {
+//   console.error('\n_read() called ' + (d - 97) + ' times');
+// });
+// process.stdout.on('error', process.exit);
+
+
+process.stdin.on('readable', function() {
+	var buf = process.stdin.read(3);
+	console.dir(buf);
 });
-process.stdout.on('error', process.exit);
+
 
 
 
