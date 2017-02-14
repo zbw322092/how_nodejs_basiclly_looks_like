@@ -1,3 +1,5 @@
+'use strict'
+
 const fs = require('fs');
 const zlib = require('zlib');
 // const http = require('http');
@@ -87,15 +89,55 @@ const zlib = require('zlib');
 // 	}
 // });
 
-const rr6 = fs.createReadStream('randomText.txt');
-const writeStream3 = fs.createWriteStream('randomTextDestination.txt');
-rr6.pipe(writeStream3);
-setTimeout(() => {
-	console.log('Stop writing');
-	rr6.unpipe(writeStream3);
-	console.log('Manually close the file stream');
-	writeStream3.end();
-},100);
+// const rr6 = fs.createReadStream('randomText.txt');
+// const writeStream3 = fs.createWriteStream('randomTextDestination.txt');
+// rr6.pipe(writeStream3);
+// setTimeout(() => {
+// 	console.log('Stop writing');
+// 	rr6.unpipe(writeStream3);
+// 	console.log('Manually close the file stream');
+// 	writeStream3.end();
+// },100);
+
+
+
+const Readable = require('stream').Readable;
+// const rs = new Readable();
+// rs.push('hi ');
+// rs.push('there.');
+// // rs.push(null) tells the consumer that rs is done outputting data.
+// rs.push(null);
+
+// rs.pipe(process.stdout);
+
+
+// const rs2 = Readable();
+// let c = 97;
+// // We can push chunks on-demand by defining a ._read function:
+// rs2._read = function () {
+// 	rs2.push(String.fromCharCode(c++));
+// 	if (c > 'z'.charCodeAt(0)) rs2.push(null);
+// };
+
+// rs2.pipe(process.stdout);
+
+
+const rs3 = Readable();
+let d = 97 - 1;
+rs3._read = function () {
+    if (d >= 'z'.charCodeAt(0)) return rs3.push(null);
+
+    setTimeout(function () {
+        rs3.push(String.fromCharCode(++d));
+    }, 100);
+};
+
+rs3.pipe(process.stdout);
+process.on('exit', function () {
+  console.error('\n_read() called ' + (d - 97) + ' times');
+});
+process.stdout.on('error', process.exit);
+
 
 
 
